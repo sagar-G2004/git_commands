@@ -539,3 +539,102 @@ or
 ```bash
 git stash push -m "file stash" file.txt
 ```
+# Git Revert
+## What is Git Revert?
+`git revert` is used to undo the changes introduced by a commit by creating a new commit. Unlike `git reset`, it does not remove commits from history.
+---
+## Revert the Latest Commit
+```bash
+git revert HEAD
+```
+Git creates a new commit that reverses the changes made by the latest commit.
+---
+## Example
+### Commit History Before Revert
+```bash
+git log --oneline
+```
+Output:
+```text
+0a7b844 (HEAD -> feature1) revert added
+94a99dc hi commited Revert "xxxy"
+f35f195 xxxy
+329387f abcd
+32377b3 modified
+9b9b674 first commit
+```
+### File Content Before Revert
+```text
+Hi this is sagar
+hello how are you?
+fine
+ok bye
+5th line added
+one more line added
+two more line added
+revert added
+```
+### Revert the Latest Commit
+```bash
+git revert HEAD
+```
+Output:
+```text
+[feature1 5decb08] Revert "revert added"
+1 file changed, 1 insertion(+), 2 deletions(-)
+```
+### Commit History After Revert
+```bash
+git log --oneline
+```
+Output:
+```text
+5decb08 (HEAD -> feature1) Revert "revert added"
+0a7b844 revert added
+94a99dc hi commited Revert "xxxy"
+f35f195 xxxy
+329387f abcd
+32377b3 modified
+9b9b674 first commit
+```
+### File Content After Revert
+```text
+Hi this is sagar
+hello how are you?
+fine
+ok bye
+5th line added
+one more line added
+two more line added
+last line removed which is added previously
+```
+---
+## Revert a Specific Commit
+```bash
+git revert <commit-id>
+```
+Example:
+```bash
+git revert f35f195
+```
+---
+## Revert Multiple Commits
+```bash
+git revert HEAD~2..HEAD
+```
+---
+## Difference Between Revert and Reset
+| Git Revert | Git Reset |
+|------------|-----------|
+| Creates a new commit | Moves HEAD |
+| Preserves history | Rewrites history |
+| Safe for shared branches | Risky on shared branches |
+| Can be pushed safely | May require force push |
+---
+## Interview Questions
+### Does git revert delete a commit?
+**Answer:** No. It creates a new commit that undoes the changes of the target commit.
+### Is git revert safe on shared branches?
+**Answer:** Yes. Since history is preserved, it is safe to use on shared branches.
+### What happens when you run `git revert HEAD`?
+**Answer:** Git creates a new commit that reverses the changes introduced by the latest commit.
