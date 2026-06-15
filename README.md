@@ -352,3 +352,190 @@ Changes to be committed
 ```
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/10552c3c-c5a7-45ad-a3be-2957e7a4605f" />
 
+# Git Stash
+
+## What is Git Stash?
+
+`git stash` temporarily saves your uncommitted changes (tracked files) and restores your working directory to a clean state. It is useful when you need to switch branches or pull changes without committing your current work.
+
+---
+
+## Save Changes to Stash
+
+```bash
+git stash
+```
+
+Or provide a custom message:
+
+```bash
+git stash push -m "working on login feature"
+```
+
+---
+
+## View Stashed Changes
+
+```bash
+git stash list
+```
+
+Example:
+
+```text
+stash@{0}: On main: working on login feature
+stash@{1}: On feature1: fixing bug
+```
+
+---
+
+## Apply Stashed Changes
+
+Apply the latest stash without removing it from the stash list:
+
+```bash
+git stash apply
+```
+
+Apply a specific stash:
+
+```bash
+git stash apply stash@{0}
+```
+
+---
+
+## Pop Stashed Changes
+
+Apply the latest stash and remove it from the stash list:
+
+```bash
+git stash pop
+```
+
+---
+
+## Delete a Specific Stash
+
+```bash
+git stash drop stash@{0}
+```
+
+---
+
+## Delete All Stashes
+
+```bash
+git stash clear
+```
+
+---
+
+## Stash Untracked Files
+
+By default, untracked files are not stashed.
+
+```bash
+git stash -u
+```
+
+or
+
+```bash
+git stash --include-untracked
+```
+
+---
+
+## Create a Branch from a Stash
+
+```bash
+git stash branch new-branch-name
+```
+
+This creates a new branch, applies the stash, and removes it from the stash list.
+
+---
+
+## Example
+
+Current Status:
+
+```bash
+git status
+```
+
+Output:
+
+```text
+modified: abc.txt
+modified: test.txt
+```
+
+Save Changes:
+
+```bash
+git stash
+```
+
+Output:
+
+```text
+Saved working directory and index state
+```
+
+Check Status:
+
+```bash
+git status
+```
+
+Output:
+
+```text
+nothing to commit, working tree clean
+```
+
+Restore Changes:
+
+```bash
+git stash pop
+```
+
+Output:
+
+```text
+modified: abc.txt
+modified: test.txt
+```
+
+---
+
+## Interview Questions
+
+### Does git stash save untracked files?
+
+**Answer:** No. Use:
+
+```bash
+git stash -u
+```
+
+### What is the difference between git stash apply and git stash pop?
+
+| Command | Applies Changes | Removes Stash |
+|----------|----------------|---------------|
+| `git stash apply` | Yes | No |
+| `git stash pop` | Yes | Yes |
+
+### Can you stash a single file?
+
+```bash
+git stash push file.txt
+```
+
+or
+
+```bash
+git stash push -m "file stash" file.txt
+```
