@@ -350,3 +350,5 @@ Output:
 ```text
 Changes to be committed
 ```
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/10552c3c-c5a7-45ad-a3be-2957e7a4605f" />
+
